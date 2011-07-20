@@ -4,7 +4,7 @@ require "version"
 
 Gem::Specification.new do |s|
   s.name        = "activo-rails"
-  s.version     = VERSION
+  s.version     = TO::CSV::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Ary Djmal"]
   s.email       = ["arydjmal@gmail.com"]
