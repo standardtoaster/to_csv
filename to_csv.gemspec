@@ -4,7 +4,7 @@ require "version"
 
 Gem::Specification.new do |s|
   s.name        = "to_csv"
-  s.version     = TO::CSV::VERSION
+  s.version     = ToCSV::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Ary Djmal"]
   s.email       = ["arydjmal@gmail.com"]
