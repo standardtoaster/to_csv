@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "version"
 
 Gem::Specification.new do |s|
-  s.name        = "activo-rails"
+  s.name        = "to_csv"
   s.version     = TO::CSV::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Ary Djmal"]
