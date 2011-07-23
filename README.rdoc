@@ -1,6 +1,6 @@
 = to_csv plugin
 
-This simple plugin gives you the ability to call to_csv to a collection of activerecords. The builder options are the same as to_json / to_xml, except for the :include.
+This simple plugin gives you the ability to call to_csv to a collection of activerecords. The builder options are the same as to_json / to_xml, with caveats for the :include. By default, does not traverse any AR relationships. 
 
 
 == Usage
@@ -20,7 +20,7 @@ This simple plugin gives you the ability to call to_csv to a collection of activ
 
 == Real life example
 
-In the controller where you want to export to csv, add the format.csv line (as of rails 2.1 it is not necessary to register the csv myme_type)
+In the controller where you want to export to csv, add the format.csv line (as of rails 2.1 it is not necessary to register the csv mimetype)
 
   class UserController < ApplicationController
 
