@@ -40,7 +40,8 @@ class ToCsvTest < Test::Unit::TestCase
     assert_equal( "Name\nAry\nNati\n", @users.to_csv(:except => [:id, :name], :only => :name) )
   end
 
-  def test_with_except
+  def test_with_method
     assert_equal( "Age,Id,Name,Is old?\n25,1,Ary,false\n22,2,Nati,false\n", @users.to_csv(:methods => [:is_old?]) )
   end
+
 end
