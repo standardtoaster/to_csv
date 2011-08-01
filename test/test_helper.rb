@@ -26,19 +26,15 @@ end
 def load_test_data
   #has no remote, but a couple dogs
   ary = User.create(:name => 'Ary', :age => 25)
-  rover = Dog.create(:name => 'Rufus')
-  rover.toy = Toy.create(:name => 'Bone', :dog_id => 1)
-  scruffy = Dog.create(:name => 'Scruffy')
+  ary.dogs << Dog.create(:name => 'Rufus', :toy => Toy.create(:name => 'Bone'))
+  ary.dogs << Dog.create(:name => 'Scruffy')
 
   #has a remote but no dogs
-  nati = User.create(:name => 'Nati', :age => 22)
-  nati.remote = Remote.create(:name => 'universal')
-      
+  nati = User.create(:name => 'Nati', :age => 22, :remote => Remote.create(:name => 'universal'))
 
 end
 
 class User < ActiveRecord::Base
-  attr_accessor :name, :age, :remote_id
   belongs_to :remote
   has_many :dogs
   def is_old?
@@ -47,14 +43,12 @@ class User < ActiveRecord::Base
 end
 
 class Remote < ActiveRecord::Base
-  attr_accessor :name
   def button_count
     5
   end
 end
 
 class Dog < ActiveRecord::Base
-  attr_accessor :name
   has_one :toy
   def barks?
     true
@@ -62,7 +56,6 @@ class Dog < ActiveRecord::Base
 end
 
 class Toy < ActiveRecord::Base
-  attr_accessor :name, :dog_id
   def is_wrecked?
     false
   end

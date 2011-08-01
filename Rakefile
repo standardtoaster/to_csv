@@ -1,6 +1,9 @@
 #!/usr/bin/env rake
 require 'rake/testtask'
 require 'rdoc/task'
+require 'single_test' 
+
+SingleTest.load_tasks
 
 desc 'Default: run unit tests.'
 task :default => :test
@@ -12,6 +15,8 @@ Rake::TestTask.new(:test) do |t|
   t.pattern = 'test/**/*_test.rb'
   t.verbose = true
 end
+
+
 
 desc 'Generate documentation for the to_csv plugin.'
 RDoc::Task.new(:rdoc) do |rdoc|

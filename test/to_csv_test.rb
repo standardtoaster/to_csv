@@ -33,7 +33,7 @@ class ToCsvTest < Test::Unit::TestCase
   end
 
   def test_with_empty_only
-    assert_equal( "", @@users.to_csv(:only => "") )
+    assert_equal( "\n", @@users.to_csv(:only => "") )
   end
 
   def test_with_only_and_wrong_column_names

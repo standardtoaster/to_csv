@@ -1,1 +1,1 @@
-require 'to_csv'
+require File.expand_path(File.join(File.dirname(__FILE__), '/lib/to_csv'))
