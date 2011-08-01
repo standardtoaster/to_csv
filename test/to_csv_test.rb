@@ -3,16 +3,17 @@ require File.expand_path(File.join(File.dirname(__FILE__), 'test_helper'))
 class ToCsvTest < Test::Unit::TestCase
 
   load_schema
+  load_test_data
   @@users = User.all
   def setup
     #  @users = User.all
   end
   
   def test_schema_has_loaded_correctly
-    assert_equal [], User.all
-    assert_equal [], Dog.all
-    assert_equal [], Toy.all
-    assert_equal [], Remote.all
+    assert_equal 2, User.count
+    assert_equal 2, Dog.count
+    assert_equal 1, Toy.count
+    assert_equal 1, Remote.count
   end
   
   def test_with_empty_array

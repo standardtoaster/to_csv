@@ -9,9 +9,9 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table :dogs, :force => true do |t|
     t.string :name
     t.references :user
-    t.references :toy
   end
   create_table :toys, :force => true do |t|
     t.string :name
+    t.references :dog
   end
 end
