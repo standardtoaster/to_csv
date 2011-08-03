@@ -21,11 +21,11 @@ class ToCsvTest < Test::Unit::TestCase
   end
 
   def test_with_no_options
-    assert_equal( "Age,Id,Name\n25,1,Ary\n22,2,Nati\n", @@users.to_csv )
+    assert_equal( "Remote,Name,Id,Age\n,Ary,1,25\n1,Nati,2,22\n", @@users.to_csv )
   end
 
   def test_with_no_headers
-    assert_equal( "25,1,Ary\n22,2,Nati\n", @@users.to_csv(:headers => false) )
+    assert_equal( ",Ary,1,25\n1,Nati,2,22\n", @@users.to_csv(:headers => false) )
   end
 
   def test_with_only
@@ -33,7 +33,7 @@ class ToCsvTest < Test::Unit::TestCase
   end
 
   def test_with_empty_only
-    assert_equal( "\n", @@users.to_csv(:only => "") )
+    assert_equal( "\n\n\n", @@users.to_csv(:only => "") )
   end
 
   def test_with_only_and_wrong_column_names
@@ -41,14 +41,14 @@ class ToCsvTest < Test::Unit::TestCase
   end
 
   def test_with_except
-    assert_equal( "Age\n25\n22\n", @@users.to_csv(:except => [:id, :name]) )
+    assert_equal( "Age\n25\n22\n", @@users.to_csv(:except => [:id, :name, :remote_id]) )
   end
   def test_with_except_and_only_should_listen_to_only
     assert_equal( "Name\nAry\nNati\n", @@users.to_csv(:except => [:id, :name], :only => :name) )
   end
 
   def test_with_method
-    assert_equal( "Age,Id,Name,Is old?\n25,1,Ary,false\n22,2,Nati,false\n", @@users.to_csv(:methods => [:is_old?]) )
+    assert_equal( "Remote,Name,Is Old?,Id,Age\n,Ary,false,1,25\n1,Nati,false,2,22\n", @@users.to_csv(:methods => [:is_old?]) )
   end
   
   def test_with_include_singular
@@ -82,15 +82,15 @@ class ToCsvTest < Test::Unit::TestCase
   end
   
   def test_with_nested_array_include
-    assert_equal( "Age,Id,Name,Dog id,Dog name,Toy id,Toy name\n25,1,Ary,1,Rufus,1,Bone\n25,1,Ary,1,Rufus,2,Cookie\n25,1,Ary,2,Scruffy,1,Bone\n22,2,Nati,,,,\n", @@users.to_csv(:include => {:dogs => {:include => [:toys]}}) )
+    assert_equal( "Age,Id,Name,Dog id,Dog name,Toy id,Toy name\n25,1,Ary,1,Rufus,1,Bone\n25,1,Ary,1,Rufus,2,Cookie\n25,1,Ary,2,Scruffy,1,Bone\n22,2,Nati,,,,\n", @@users.to_csv(:include => {:dogs => {:include => [:toy]}}) )
   end
   
   def test_with_nested_array_include_array_method
-    assert_equal( "Age,Id,Name,Dog id,Dog name,Toy id,Toy name,Is wrecked?\n25,1,Ary,1,Rufus,1,Bone,false\n25,1,Ary,1,Rufus,2,Cookie,true\n25,1,Ary,2,Scruffy,1,Bone,false\n22,2,Nati,,,,,\n", @@users.to_csv(:include => {:dogs => {:include => {:toys => {:method => :is_wrecked?}}}}) )
+    assert_equal( "Age,Id,Name,Dog id,Dog name,Toy id,Toy name,Is wrecked?\n25,1,Ary,1,Rufus,1,Bone,false\n25,1,Ary,1,Rufus,2,Cookie,true\n25,1,Ary,2,Scruffy,1,Bone,false\n22,2,Nati,,,,,\n", @@users.to_csv(:include => {:dogs => {:include => {:toy => {:method => :is_wrecked?}}}}) )
   end
   
   def test_with_nested_array_include_array_except
-    assert_equal( "Age,Id,Name,Dog id,Dog name,Toy name\n25,1,Ary,1,Rufus,Bone\n25,1,Ary,1,Rufus,Cookie\n25,1,Ary,2,Scruffy,Bone\n22,2,Nati,,,\n", @@users.to_csv(:include => {:dogs => {:include => {:toys => {:except => :id}}}}) )
+    assert_equal( "Age,Id,Name,Dog id,Dog name,Toy name\n25,1,Ary,1,Rufus,Bone\n25,1,Ary,1,Rufus,Cookie\n25,1,Ary,2,Scruffy,Bone\n22,2,Nati,,,\n", @@users.to_csv(:include => {:dogs => {:include => {:toy => {:except => :id}}}}) )
   end
   
   #add some tests for a singular with a nested array

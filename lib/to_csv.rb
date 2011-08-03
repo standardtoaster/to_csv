@@ -1,3 +1,8 @@
+#load core requirements
+require 'active_support'
+require 'active_support/core_ext/string/inflections.rb'
+
+
 #figure out which CSV lib to use, and load the appropriate file. 
 require "csv"
 if CSV.const_defined? :Reader

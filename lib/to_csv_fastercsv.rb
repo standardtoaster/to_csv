@@ -6,18 +6,19 @@ class Array
     names = []
     serialized_hash.each do |key, value|
       if value.is_a?(Hash)
-        names << extract_column_names_for_csv(value)
+        names += extract_column_names_for_csv(value, key.to_s)
       elsif value.is_a?(Array)
-        names << extract_column_names_for_csv(value.first)
+        names += extract_column_names_for_csv(value.first, key.to_s)
       else
         name = key
-        name = "#{prefix} #{key}" unless prefix.empty?
-        names << humanize(key)
+        name = "#{ActiveSupport::Inflector::singularize(prefix)} #{key}" unless prefix.empty?      
+        names << ActiveSupport::Inflector::titleize(name)
       end
     end
     names
   end
   def extract_column_values_for_csv(serialized_hash)
+    serialized_hash ||= {}
     values = []
     serialized_hash.each do |key, value|
       if value.is_a?(Hash)
@@ -25,7 +26,7 @@ class Array
       elsif value.is_a?(Array)
         values << extract_column_values_for_csv(value.first)
       else
-        values << humanize(value)
+        values << value
       end
     end
     values
@@ -43,10 +44,10 @@ class Array
       csv << extract_column_names_for_csv(self.first.serializable_hash(options)) unless options[:headers] == false
     
       self.each do |item|
-        extract_column_values_for_csv(item.serializable_hash(options))
+        csv << extract_column_values_for_csv(item.serializable_hash(options))
       end
     
-    end 
+    end
     
     output
   end

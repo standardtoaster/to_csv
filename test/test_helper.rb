@@ -43,12 +43,14 @@ class User < ActiveRecord::Base
 end
 
 class Remote < ActiveRecord::Base
+  has_one :user
   def button_count
     5
   end
 end
 
 class Dog < ActiveRecord::Base
+  belongs_to :user
   has_one :toy
   def barks?
     true
@@ -56,6 +58,7 @@ class Dog < ActiveRecord::Base
 end
 
 class Toy < ActiveRecord::Base
+  belongs_to :dog
   def is_wrecked?
     false
   end
